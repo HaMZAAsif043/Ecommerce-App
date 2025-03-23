@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, ShoppingCart, Menu, User } from "lucide-react";
+import { Search, ShoppingCart, Menu, User, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -9,12 +9,15 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { getCartCount, openCart } = useCart();
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const cartItemCount = getCartCount();
 
@@ -81,50 +84,85 @@ const Header = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="relative">
-                <User className="h-5 w-5" />
+                {isAuthenticated ? (
+                  <User className="h-5 w-5" />
+                ) : (
+                  <LogIn className="h-5 w-5" />
+                )}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <Link to="/account" className="w-full">
-                  My Account
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/orders" className="w-full">
-                  Orders
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/wishlist" className="w-full">
-                  Wishlist
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/logout" className="w-full">
-                  Logout
-                </Link>
-              </DropdownMenuItem>
+              {isAuthenticated ? (
+                <>
+                  <div className="px-2 py-1.5 text-sm font-medium">
+                    Hello, {user?.name || "User"}
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link to="/account" className="w-full">
+                      My Account
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/orders" className="w-full">
+                      Orders
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/wishlist" className="w-full">
+                      Wishlist
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/logout" className="w-full">
+                      Logout
+                    </Link>
+                  </DropdownMenuItem>
+                </>
+              ) : (
+                <>
+                  <DropdownMenuItem>
+                    <Link to="/login" className="w-full">
+                      Login
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/signup" className="w-full">
+                      Sign Up
+                    </Link>
+                  </DropdownMenuItem>
+                </>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
 
           {/* Cart */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="relative"
-            onClick={openCart}
-          >
-            <ShoppingCart className="h-5 w-5" />
-            {cartItemCount > 0 && (
-              <Badge
-                variant="destructive"
-                className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
-              >
-                {cartItemCount}
-              </Badge>
-            )}
-          </Button>
+          <div className="flex items-center space-x-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              onClick={openCart}
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {cartItemCount > 0 && (
+                <Badge
+                  variant="destructive"
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                >
+                  {cartItemCount}
+                </Badge>
+              )}
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden md:flex"
+              onClick={() => navigate("/checkout")}
+            >
+              Checkout
+            </Button>
+          </div>
 
           {/* Mobile Menu Button */}
           <DropdownMenu>
@@ -152,6 +190,16 @@ const Header = () => {
               <DropdownMenuItem>
                 <Link to="/deals" className="w-full">
                   Deals
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to="/login" className="w-full">
+                  Login
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to="/signup" className="w-full">
+                  Sign Up
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>

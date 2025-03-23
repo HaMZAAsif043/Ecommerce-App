@@ -15,10 +15,10 @@ import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import ProductCard from "./ProductCard";
-import { useProducts } from "../../context/ProductContext";
+import { useProduct } from "../../context/ProductContext";
 
 const ProductGrid = () => {
-  const { products, categories, searchProducts, sortProducts } = useProducts();
+  const { products, categories, searchProducts, sortProducts } = useProduct();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
 

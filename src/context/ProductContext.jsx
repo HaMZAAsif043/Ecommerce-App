@@ -254,7 +254,9 @@ const initialProducts = [
 
 const ProductContext = createContext();
 
-export const useProducts = () => useContext(ProductContext);
+export const useProduct = () => useContext(ProductContext);
+// Also provide a plural alias for better developer experience
+export const useProducts = useProduct;
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState(initialProducts);

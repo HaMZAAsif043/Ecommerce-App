@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { MessageSquare, Send, X, Minimize2, Maximize2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { ScrollArea } from "../ui/scroll-area";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Chatbot = () => {
