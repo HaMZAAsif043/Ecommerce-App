@@ -48,7 +48,7 @@ const Chatbot = () => {
     if (isOpen && messages.length === 0) {
       const randomGreeting =
         botResponses.greeting[
-          Math.floor(Math.random() * botResponses.greeting.length)
+        Math.floor(Math.random() * botResponses.greeting.length)
         ];
       setMessages([
         {
@@ -149,7 +149,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-2 right-4 z-50">
       {/* Chat button */}
       <Button
         onClick={toggleChat}
@@ -158,8 +158,6 @@ const Chatbot = () => {
       >
         <MessageSquare className="h-6 w-6" />
       </Button>
-
-      {/* Chat window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -253,7 +251,7 @@ const Chatbot = () => {
                   <Button
                     type="submit"
                     size="icon"
-                    className="ml-2"
+                    className="ml-2 reltive bottom-0"
                     disabled={!inputValue.trim()}
                   >
                     <Send className="h-4 w-4" />

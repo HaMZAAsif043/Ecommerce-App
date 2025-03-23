@@ -128,7 +128,7 @@ const Home = () => {
     setCartItems((prevItems) => {
       // Check if item already exists in cart
       const existingItemIndex = prevItems.findIndex(
-        (item) => item.id === productId,
+        (item) => item.id === productId
       );
 
       if (existingItemIndex >= 0) {
@@ -186,7 +186,7 @@ const Home = () => {
       <Header
         cartItemCount={cartItems.reduce(
           (total, item) => total + item.quantity,
-          0,
+          0
         )}
         onCartClick={handleCartClick}
       />

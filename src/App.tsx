@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { useRoutes, RouterProvider } from "react-router-dom";
+import { useRoutes, BrowserRouter, RouterProvider } from "react-router-dom";
 import routes from "tempo-routes";
 import router from "./routes";
 import { AuthProvider } from "./context/AuthContext";
@@ -9,23 +9,24 @@ import { OrderProvider } from "./context/OrderContext";
 import Chatbot from "./components/chatbot/Chatbot";
 
 function App() {
-  // Only use tempo routes when in Tempo environment
-  if (import.meta.env.VITE_TEMPO === "true") {
-    return (
-      <Suspense fallback={<p>Loading...</p>}>
-        <AuthProvider>
-          <ProductProvider>
-            <CartProvider>
-              <OrderProvider>
-                {useRoutes(routes)}
-                <Chatbot />
-              </OrderProvider>
-            </CartProvider>
-          </ProductProvider>
-        </AuthProvider>
-      </Suspense>
-    );
-  }
+  // // Only use tempo routes when in Tempo environment
+  // if (import.meta.env.VITE_TEMPO === "true") {
+  //   const route = useRoutes(routes); // No need for extra BrowserRouter
+  //   return (
+  //     <Suspense fallback={<p>Loading...</p>}>
+  //       <AuthProvider>
+  //         <ProductProvider>
+  //           <CartProvider>
+  //             <OrderProvider>
+  //               {route}
+  //               <Chatbot />
+  //             </OrderProvider>
+  //           </CartProvider>
+  //         </ProductProvider>
+  //       </AuthProvider>
+  //     </Suspense>
+  //   );
+  // }
 
   // Use regular router for normal application
   return (

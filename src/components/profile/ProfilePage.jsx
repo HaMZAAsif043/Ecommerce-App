@@ -43,7 +43,7 @@ const ProfilePage = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    navigate("/login");
   };
 
   return (
